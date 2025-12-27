@@ -1,0 +1,8 @@
+services:
+  game-web-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hello-phaser-prod
+    ports:
+      - "80:80"

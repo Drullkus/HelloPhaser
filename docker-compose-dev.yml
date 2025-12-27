@@ -1,0 +1,12 @@
+services:
+  game-web-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hello-phaser-dev
+    ports:
+      - "8090:8090"
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/webgame
