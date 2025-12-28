@@ -7,7 +7,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 500M
+          memory: 2G
     ports:
       - "8090:8080"
     stdin_open: true
