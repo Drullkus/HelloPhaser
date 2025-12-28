@@ -4,9 +4,13 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: hello-phaser-dev
+    deploy:
+      resources:
+        limits:
+          memory: 500M
     ports:
-      - "80:8090"
+      - "8090:8080"
     stdin_open: true
     tty: true
     volumes:
-      - .:/webgame
+      - ./webgame:/webgame
