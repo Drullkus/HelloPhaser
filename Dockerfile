@@ -9,4 +9,4 @@ WORKDIR /webgame
 # Install pnpm
 RUN npm install -g pnpm
 
-CMD pnpm run dev --host
+CMD pnpm install && pnpm run dev --host
