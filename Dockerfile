@@ -6,9 +6,11 @@ ENV PATH=$PNPM_HOME:$PATH
 
 WORKDIR /webgame
 
+COPY /webgame .
+
 # Install pnpm then use it to obtain the http-server
 RUN npm install -g pnpm
 RUN pnpm add -g http-server
 #RUN pnpm install -g phaser@v3.90.0
 
-CMD "http-server" "webgame" "-p" "80"
+CMD "http-server" "." "-p" "80"
