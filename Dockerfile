@@ -1,16 +1,18 @@
-FROM node:25
+# --- Build stage: compile TypeScript and bundle with Vite ---
+FROM node:25-alpine AS build
 
-# PNPM needs a global dir defined
-ENV PNPM_HOME=/usr/local/pnpm
-ENV PATH=$PNPM_HOME:$PATH
+RUN npm install -g pnpm@10.12.1
 
 WORKDIR /webgame
 
-COPY /webgame .
+COPY webgame/package.json webgame/pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
-# Install pnpm then use it to obtain the http-server
-RUN npm install -g pnpm
-RUN pnpm add -g http-server
-#RUN pnpm install -g phaser@v3.90.0
+COPY webgame .
+RUN pnpm build
 
-CMD "http-server" "." "-p" "80"
+FROM nginx:alpine AS serve
+
+COPY --from=build /webgame/dist /usr/share/nginx/html
+
+EXPOSE 80

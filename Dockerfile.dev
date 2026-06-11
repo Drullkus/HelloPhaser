@@ -1,0 +1,14 @@
+FROM node:25-alpine
+
+RUN npm install -g pnpm@10.12.1
+
+WORKDIR /webgame
+
+COPY webgame/package.json webgame/pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+COPY webgame .
+
+EXPOSE 5173
+
+CMD ["pnpm", "dev", "--host"]
